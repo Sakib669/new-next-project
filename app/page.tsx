@@ -1,7 +1,7 @@
 interface Props {}
 
 const Home = ({}: Props) => {
-  return <div>Welcome to next js new project</div>;
+  return <h1>Welcome to next js new project</h1>;
 };
 
 export default Home;

@@ -3,12 +3,12 @@ import { Schibsted_Grotesk, Martian_Mono } from "next/font/google";
 import "./globals.css";
 
 const schibstedGrotesk = Schibsted_Grotesk({
-  variable: "--font-geist-sans",
+  variable: "--font-schibsted-grotesk",
   subsets: ["latin"],
 });
 
 const martianMono = Martian_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-martian-mono",
   subsets: ["latin"],
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${schibstedGrotesk.variable} ${martianMono.variable} antialiased`}
+        className={`${schibstedGrotesk.variable} ${martianMono.variable} antialiased min-h-screen`}
       >
         {children}
       </body>
