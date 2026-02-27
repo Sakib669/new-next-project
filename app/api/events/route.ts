@@ -1,6 +1,7 @@
 import { Event } from "@/database";
 import connectDB from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
+import { v2 as cloudinary } from "cloudinary";
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -27,6 +28,23 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          { resource_type: "image", folder: "DevEvent" },
+          (error, results) => {
+            if (error) return reject(error);
+            resolve(results);
+          },
+        )
+        .end(buffer);
+    });
+
+    event.image = (uploadResult as { secure_url: string }).secure_url;
+
     const createdEvent = await Event.create(event);
 
     return NextResponse.json(
@@ -42,6 +60,29 @@ export const POST = async (req: NextRequest) => {
       },
       {
         status: 400,
+      },
+    );
+  }
+};
+
+export const GET = async () => {
+  try {
+    await connectDB();
+
+    const events = await Event.find().sort({ createdAt: -1 });
+
+    return NextResponse.json({
+      message: "Events fetched successfully",
+      events,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Event fetching failed",
+        error: error,
+      },
+      {
+        status: 500,
       },
     );
   }
