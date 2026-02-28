@@ -9,8 +9,6 @@ interface Props {}
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const Page = async ({}: Props) => {
-  "use cache";
-  cacheLife("hours");
   await connectDB();
   const events = await Event.find({}).lean();
   return (
