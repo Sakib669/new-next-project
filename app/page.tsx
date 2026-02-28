@@ -1,6 +1,7 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
-import { IEvent } from "@/database";
+import { Event, IEvent } from "@/database";
+import connectDB from "@/lib/mongodb";
 import { cacheLife } from "next/cache";
 
 interface Props {}
@@ -10,8 +11,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const Page = async ({}: Props) => {
   "use cache";
   cacheLife("hours");
-  const response = await fetch(`${BASE_URL}/api/events`);
-  const { events } = await response.json();
+  await connectDB();
+  const events = await Event.find({}).lean();
   return (
     <section>
       <h1 className="text-center">
