@@ -8,7 +8,7 @@ export type EventItem = {
   time: string;
 };
 
-export const events: EventItem[] = [
+ const events: EventItem[] = [
   {
     image: "/images/event1.png",
     title: "React Summit US 2025",
@@ -58,3 +58,5 @@ export const events: EventItem[] = [
     time: "10:00 AM",
   },
 ];
+
+export default events;
