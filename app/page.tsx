@@ -9,7 +9,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const Page = async ({}: Props) => {
   "use cache";
-  cacheLife("hours")
+  cacheLife("hours");
   const response = await fetch(`${BASE_URL}/api/events`);
   const { events } = await response.json();
   return (
