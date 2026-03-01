@@ -14,8 +14,8 @@ const Navbar = ({}: Props) => {
 
         <ul>
           <Link href={"/"}>Home</Link>
-          <Link href={"/"}>Events</Link>
-          <Link href={"/"}>Create Events</Link>
+          <Link href={"/events"}>Events</Link>
+          <Link href={"/events/create"}>Create Events</Link>
         </ul>
       </nav>
     </header>
